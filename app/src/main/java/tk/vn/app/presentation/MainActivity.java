@@ -1,5 +1,6 @@
 package tk.vn.app.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -115,6 +116,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+        } else if (id == R.id.nav_profile) {
+            Intent i = new Intent(this, ProfileActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_all_courses) {
 
         } else if (id == R.id.nav_vn_Science) {

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tk.vn.app.presentation.ProfileActivity">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_padding"
+        android:textColor="@color/font_Dark"
+        android:textSize="@dimen/font_size_h3"
+        android:text="Your Profile"/>
+
+    <TextView
+        android:id="@+id/username_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/heading"
+        android:layout_margin="@dimen/default_padding"
+        android:textColor="@color/font_Dark"
+        android:textSize="@dimen/font_size_h5"
+        android:text="User Name :- "/>
+
+    <EditText
+        android:id="@+id/username_editText"
+        android:editable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/email_label"
+        android:layout_alignBottom="@+id/username_label"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="none"
+        android:text="max_lance"/>
+
+    <TextView
+        android:id="@+id/email_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username_label"
+        android:layout_margin="@dimen/default_padding"
+        android:textColor="@color/font_Dark"
+        android:textSize="@dimen/font_size_h5"
+        android:text="Email Id :- "/>
+
+    <EditText
+        android:id="@+id/email_editText"
+        android:editable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username_editText"
+        android:layout_alignBottom="@+id/email_label"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="max_14@gmail.com"/>
+
+    <TextView
+        android:id="@+id/firstName_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email_label"
+        android:layout_margin="@dimen/default_padding"
+        android:textColor="@color/font_Dark"
+        android:textSize="@dimen/font_size_h5"
+        android:text="First Name :- "/>
+
+    <EditText
+        android:id="@+id/firstName_editText"
+        android:editable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email_editText"
+        android:layout_alignBottom="@+id/firstName_label"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Max"/>
+
+    <TextView
+        android:id="@+id/lastName_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstName_label"
+        android:layout_margin="@dimen/default_padding"
+        android:textColor="@color/font_Dark"
+        android:textSize="@dimen/font_size_h5"
+        android:text="Last Name :- "/>
+
+    <EditText
+        android:id="@+id/lastName_editText"
+        android:editable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/firstName_editText"
+        android:layout_alignBottom="@+id/lastName_label"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Lance"/>
+
+    <TextView
+        android:id="@+id/passwd_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lastName_label"
+        android:layout_margin="@dimen/default_padding"
+        android:textColor="@color/font_Dark"
+        android:textSize="@dimen/font_size_h5"
+        android:text="Password :- "/>
+
+    <EditText
+        android:id="@+id/passwd_editText"
+        android:editable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastName_editText"
+        android:layout_alignBottom="@+id/passwd_label"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/confirm_passwd_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwd_label"
+        android:layout_margin="@dimen/default_padding"
+        android:textColor="@color/font_Dark"
+        android:textSize="@dimen/font_size_h5"
+        android:text="Confirm Password :- "/>
+
+    <EditText
+        android:id="@+id/confirm_passwd_editText"
+        android:editable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwd_editText"
+        android:layout_alignBottom="@+id/confirm_passwd_label"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text=""/>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirm_passwd_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Update"/>
+
+</RelativeLayout>

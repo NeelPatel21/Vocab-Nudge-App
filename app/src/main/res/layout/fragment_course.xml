@@ -1,13 +1,279 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="tk.vn.app.presentation.CourseFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Course Fragment"/>
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/headerView"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" >
+
+            <TextView
+                android:id="@+id/course_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="BASIC VOCABULARY"
+                android:layout_margin="@dimen/default_padding"
+                android:textSize="@dimen/font_size_h4"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollablContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/headerView" >
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/credit_card"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginLeft="@dimen/default_padding"
+                android:layout_marginRight="@dimen/default_padding"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/default_padding"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/progress_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="Progress"
+                            android:textColor="@color/font_Dark"
+                            android:textSize="@dimen/font_size_h4"/>
+
+                        <TextView
+                            android:id="@+id/goals_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/goals_Text"
+                            android:layout_alignParentTop="true"
+                            android:text="Goals:"
+                            android:textColor="@color/font_Dark"
+                            android:textSize="@dimen/font_size_h4"/>
+
+                        <TextView
+                            android:id="@+id/goals_Text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:text="50"
+                            android:textColor="@color/font_Dark"
+                            android:textSize="@dimen/font_size_h4"/>
+
+                        <TextView
+                            android:id="@+id/mastered_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@id/progress_label"
+                            android:text="Mastered"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:textSize="@dimen/font_size_h5"/>
+
+                        <ProgressBar
+                            android:id="@+id/mastered_progressBar"
+                            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/progress_label"
+                            android:layout_alignStart="@+id/in_progress_progressBar"
+                            android:layout_below="@id/progress_label"
+                            android:layout_toLeftOf="@+id/goals_Text"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_marginRight="@dimen/default_padding"
+                            android:layout_alignBottom="@id/mastered_label"
+                            android:progress="50"/>
+
+                        <TextView
+                            android:id="@+id/mastered_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_below="@id/progress_label"
+                            android:text="25"
+                            android:textSize="@dimen/font_size_h5"/>
+
+
+                        <TextView
+                            android:id="@+id/in_progress_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_below="@id/mastered_label"
+                            android:text="In Progress"
+                            android:textSize="@dimen/font_size_h5"/>
+
+                        <ProgressBar
+                            android:id="@+id/in_progress_progressBar"
+                            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/in_progress_label"
+                            android:layout_below="@id/mastered_progressBar"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_toLeftOf="@+id/goals_Text"
+                            android:layout_marginLeft="@dimen/default_padding"
+                            android:layout_marginRight="@dimen/default_padding"
+                            android:layout_alignBottom="@id/in_progress_label"
+                            android:progress="32"/>
+
+                        <TextView
+                            android:id="@+id/in_progress_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/mastered_num"
+                            android:text="16"
+                            android:textSize="@dimen/font_size_h5"/>
+
+                        <TextView
+                            android:id="@+id/pending_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_below="@id/in_progress_label"
+                            android:text="Pending"
+                            android:textSize="@dimen/font_size_h5"/>
+
+                        <ProgressBar
+                            android:id="@+id/pending_progressBar"
+                            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/pending_label"
+                            android:layout_below="@id/in_progress_progressBar"
+                            android:layout_alignStart="@+id/in_progress_progressBar"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_toLeftOf="@+id/goals_Text"
+                            android:layout_marginRight="@dimen/default_padding"
+                            android:layout_alignBottom="@id/pending_label"
+                            android:progress="18"/>
+
+                        <TextView
+                            android:id="@+id/pending_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_padding"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/in_progress_num"
+                            android:text="9"
+                            android:textSize="@dimen/font_size_h5"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginLeft="@dimen/default_padding"
+                android:layout_marginRight="@dimen/default_padding"
+                card_view:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.gms.ads.AdView
+                        xmlns:ads="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/adView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/default_padding"
+                        android:background="@color/colorWhite"
+                        ads:adSize="FULL_WIDTHx250"
+                        ads:paddingEnd="@dimen/default_padding"
+                        ads:paddingStart="@dimen/default_padding"
+                        android:elevation="3dp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/setting_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginLeft="@dimen/default_padding"
+                android:layout_marginRight="@dimen/default_padding"
+                card_view:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorActiveTab"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:padding="@dimen/default_padding"
+                        android:layout_height="wrap_content" >
+                        <TextView
+                            android:id="@+id/setting_label"
+                            android:layout_width="328dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:text="Settings"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/font_size_h4"
+                            tools:layout_editor_absoluteY="206dp"
+                            tools:layout_editor_absoluteX="8dp"/>
+                        <TextView
+                            android:id="@+id/setting_text"
+                            android:layout_width="328dp"
+                            android:layout_height="wrap_content"
+                            android:text="Change your notification frequency and other course settings"
+                            android:textColor="@color/colorWhite"
+                            android:layout_below="@id/setting_label"
+                            android:textSize="@dimen/font_size_h5"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
 </FrameLayout>
