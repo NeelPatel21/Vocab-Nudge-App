@@ -17,6 +17,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import tk.vn.app.R;
+import tk.vn.app.com.Consumer;
+import tk.vn.app.com.UserDetailFetchTask;
+import tk.vn.app.model.UserBean;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView;
 
+    TextView headerText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +57,16 @@ public class MainActivity extends AppCompatActivity
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerLayout = navigationView.getHeaderView(0);
-        TextView tv = (TextView)headerLayout.findViewById(R.id.nav_header_text2);
+        headerText = (TextView)headerLayout.findViewById(R.id.nav_header_text2);
 //        System.out.println("test :- "+headerLayout);
-        tv.setText("nothing"); //TODO set user's first name & last name
+        UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
+            @Override
+            public void consume(UserBean userBean) {
+                //TODO set user's first name & last name
+                headerText.setText(userBean.getFirstName()+" "+userBean.getLastName());
+            }
+        });
+        task.fetchUserBean();
 
 //        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
