@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import tk.vn.app.R;
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity
 
     Toolbar toolbar;
 
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,11 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewPager = (ViewPager) findViewById(R.id.container);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerLayout = navigationView.getHeaderView(0);
+        TextView tv = (TextView)headerLayout.findViewById(R.id.nav_header_text2);
+//        System.out.println("test :- "+headerLayout);
+        tv.setText("nothing"); //TODO set user's first name & last name
 
 //        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
