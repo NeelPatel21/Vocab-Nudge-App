@@ -22,6 +22,7 @@ public class UserDetailFetchTask {
 
     private final Context context;
     private SimpleRequest<UserBean> rt;
+//    private ExtendedRequest<String,String> rt;
     private ProgressDialog progressDialog;
     private UserBean userBean;
     private Consumer<UserBean> consumer;
@@ -40,12 +41,13 @@ public class UserDetailFetchTask {
             Log.i(UserDetailFetchTask.class.getName(),"token not retrieved from SharedPreferences");
             return;
         }
-        System.setProperty("https.protocols", "TLSv2");
 
         Log.i(UserDetailFetchTask.class.getName(),"retrieving user details with token :- "+token);
         rt = new SimpleRequest<UserBean>(UserBean.class, HttpMethod.GET,
                 HeaderTools.CONTENT_TYPE_JSON,
                 HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token)){
+//        rt = new ExtendedRequest<String, String>(String.class,"", HttpMethod.GET,
+//                HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token)){
 
             @Override
             protected void onPreExecute() {
@@ -65,8 +67,17 @@ public class UserDetailFetchTask {
                     consumer.consume(userBean);
                 System.out.println("check 1");
             }
+
+//            @Override
+//            protected void onPostExecute(String resp) {
+//                super.onPostExecute(resp);
+//                progressDialog.dismiss();
+//                System.out.println("check 1");
+//                Log.i("test", "String retrieved :- "+resp);
+//            }
         };
         rt.execute(Const.API_BASE_URL+"/user/profile");
+//        rt.execute(Const.API_BASE_URL+"/user/test");
     }
 
     public @Nullable UserBean getUserBean(){

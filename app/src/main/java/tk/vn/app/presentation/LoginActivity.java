@@ -173,6 +173,9 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString(Const.SHARED_PREF_TOKEN, token);
             editor.commit();
             Toast.makeText(this,"login successful",Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+
         }else{
             //TODO login fail
             Log.i("Login","fail, response status :- "+status.value());
