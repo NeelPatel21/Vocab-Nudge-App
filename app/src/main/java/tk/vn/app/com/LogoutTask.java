@@ -11,39 +11,36 @@ import com.simple_rest.s_rest.restapi.request.HeaderTools;
 import com.simple_rest.s_rest.restapi.request.SimpleRequest;
 
 import org.springframework.http.HttpMethod;
-
-import tk.vn.app.model.UserBean;
+import org.springframework.http.HttpStatus;
 
 /**
  * Created by neelp on 28-03-2018.
  */
 
-public class UserDetailFetchTask {
+public class LogoutTask {
 
     private final Context context;
-    private SimpleRequest<UserBean> rt;
+    private SimpleRequest<String> rt;
     private ProgressDialog progressDialog;
-    private UserBean userBean;
-    private Consumer<UserBean> consumer;
+    private HttpStatus httpStatus;
+    private Consumer<HttpStatus> consumer;
 
-    public UserDetailFetchTask(@NonNull Context context, Consumer<UserBean> consumer){
+    public LogoutTask(@NonNull Context context, Consumer<HttpStatus> consumer){
         this.context = context;
         this.consumer = consumer;
     }
 
-    public void fetchUserBean(){
+    public void logout(){
         SharedPreferences sp = context.getSharedPreferences(Const.DEF_SHARED_PREF,
                                     Context.MODE_PRIVATE);
         String token = sp.getString(Const.SHARED_PREF_TOKEN,"");;
 
         if(token == null || token.isEmpty()){
-            Log.w(UserDetailFetchTask.class.getName(),"token not retrieved from SharedPreferences");
-            return;
+            Log.w(LogoutTask.class.getName(),"token not retrieved from SharedPreferences");
         }
 
-        Log.i(UserDetailFetchTask.class.getName(),"retrieving user details with token :- "+token);
-        rt = new SimpleRequest<UserBean>(UserBean.class, HttpMethod.GET,
-                HeaderTools.CONTENT_TYPE_JSON,
+        Log.i(LogoutTask.class.getName(),"performing logout with token :- "+token);
+        rt = new SimpleRequest<String>(String.class, HttpMethod.DELETE,
                 HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token)){
 
             @Override
@@ -51,30 +48,32 @@ public class UserDetailFetchTask {
                 super.onPreExecute();
                 progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage("Please wait");
-                progressDialog.setTitle("loading");
+                progressDialog.setTitle("signing out");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
             }
 
             @Override
-            protected void onPostExecute(UserBean userBean) {
-                super.onPostExecute(userBean);
+            protected void onPostExecute(String string) {
+                super.onPostExecute(string);
                 progressDialog.dismiss();
+                LogoutTask.this.httpStatus = super.getHttpStatus();
                 if(consumer != null)
-                    consumer.consume(userBean);
+                    consumer.consume(super.getHttpStatus());
                 else
-                    Log.i(UserDetailFetchTask.class.getName(),"consumer reference null");
+                    Log.i(LogoutTask.class.getName(),"consumer reference null");
+
             }
 
         };
-        rt.execute(Const.API_BASE_URL+"/user/profile");
+        rt.execute(Const.API_BASE_URL+"/auth/logout");
     }
 
-    public @Nullable UserBean getUserBean(){
-        return userBean;
+    public @Nullable HttpStatus getResponseStatus(){
+        return httpStatus;
     }
 
-    public SimpleRequest<UserBean> getRt() {
+    public SimpleRequest<String> getRt() {
         return rt;
     }
 
@@ -82,11 +81,11 @@ public class UserDetailFetchTask {
         return progressDialog;
     }
 
-    public Consumer<UserBean> getConsumer() {
+    public Consumer<HttpStatus> getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(Consumer<UserBean> consumer) {
+    public void setConsumer(Consumer<HttpStatus> consumer) {
         this.consumer = consumer;
     }
 }

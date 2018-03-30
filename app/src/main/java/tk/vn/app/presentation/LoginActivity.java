@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }else{
             //TODO login fail
-            Log.i("Login","fail, response status :- "+status.value());
+            Log.w("Login","fail, response status :- "+status);
             Toast.makeText(this,"login fail",Toast.LENGTH_SHORT).show();
         }
         rt = null;

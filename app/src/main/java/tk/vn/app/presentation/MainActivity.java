@@ -1,6 +1,8 @@
 package tk.vn.app.presentation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,9 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.springframework.http.HttpStatus;
 
 import tk.vn.app.R;
+import tk.vn.app.com.Const;
 import tk.vn.app.com.Consumer;
+import tk.vn.app.com.LogoutTask;
 import tk.vn.app.com.UserDetailFetchTask;
 import tk.vn.app.model.UserBean;
 
@@ -62,8 +69,9 @@ public class MainActivity extends AppCompatActivity
         UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
             @Override
             public void consume(UserBean userBean) {
-                //TODO set user's first name & last name
-                headerText.setText(userBean.getFirstName()+" "+userBean.getLastName());
+                if(userBean != null)
+                    headerText.setText(userBean.getFirstName()+" "+userBean.getLastName());
+                //TODO implement logic for error in fetching profile
             }
         });
         task.fetchUserBean();
@@ -151,7 +159,26 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_faq) {
 
         } else if (id == R.id.nav_logout) {
-
+            LogoutTask task = new LogoutTask(this, new Consumer<HttpStatus>() {
+                @Override
+                public void consume(HttpStatus httpStatus) {
+                    if(httpStatus.equals(HttpStatus.OK)){
+                        Toast.makeText(MainActivity.this,"successfully signed out",Toast.LENGTH_SHORT)
+                                .show();
+                        SharedPreferences sharedPref = getSharedPreferences(Const.DEF_SHARED_PREF,
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.remove(Const.SHARED_PREF_TOKEN);
+                        editor.commit();
+                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(i);
+                    }else{
+                        Toast.makeText(MainActivity.this,"error occurred in signing out",Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+            });
+            task.logout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
