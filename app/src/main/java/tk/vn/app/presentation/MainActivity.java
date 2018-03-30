@@ -59,6 +59,15 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        // redirect to main activity if already logged in
+        SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
+        String token = sp.getString(Const.SHARED_PREF_TOKEN, "");
+        if(token.isEmpty()){
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewPager = (ViewPager) findViewById(R.id.container);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -66,15 +75,6 @@ public class MainActivity extends AppCompatActivity
         View headerLayout = navigationView.getHeaderView(0);
         headerText = (TextView)headerLayout.findViewById(R.id.nav_header_text2);
 //        System.out.println("test :- "+headerLayout);
-        UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
-            @Override
-            public void consume(UserBean userBean) {
-                if(userBean != null)
-                    headerText.setText(userBean.getFirstName()+" "+userBean.getLastName());
-                //TODO implement logic for error in fetching profile
-            }
-        });
-        task.fetchUserBean();
 
 //        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -98,6 +98,20 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mSectionsPagerAdapter.updateTabIcons(0);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
+            @Override
+            public void consume(UserBean userBean) {
+                if(userBean != null)
+                    headerText.setText(userBean.getFirstName()+" "+userBean.getLastName());
+                //TODO implement logic for error in fetching profile
+            }
+        });
+        task.fetchUserBean();
     }
 
 
@@ -172,6 +186,7 @@ public class MainActivity extends AppCompatActivity
                         editor.commit();
                         Intent i = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(i);
+                        finish();
                     }else{
                         Toast.makeText(MainActivity.this,"error occurred in signing out",Toast.LENGTH_SHORT)
                                 .show();

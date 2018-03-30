@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         if(!token.isEmpty()){
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         }
 
         mSignInButton.setOnClickListener(new OnClickListener() {
@@ -175,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this,"login successful",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
-
+            finish();
         }else{
             //TODO login fail
             Log.w("Login","fail, response status :- "+status);

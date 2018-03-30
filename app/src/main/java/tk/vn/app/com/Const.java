@@ -10,5 +10,6 @@ public class Const {
     public final static String AUTH_PREFIX = "Bearer ";
     public final static String DEF_SHARED_PREF = "default";
     public final static String SHARED_PREF_TOKEN = "token";
+    public final static int PASS_LENGTH = 5;
 //    public final static String SHARED_PREF_DESPLAY_NAME = "user_display_name";
 }
