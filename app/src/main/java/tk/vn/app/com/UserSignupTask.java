@@ -42,7 +42,7 @@ public class UserSignupTask {
                 super.onPreExecute();
                 progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage("Please wait");
-                progressDialog.setTitle("updating");
+                progressDialog.setTitle("signing-up");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
             }

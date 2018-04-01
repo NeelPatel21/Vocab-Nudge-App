@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simple_rest.s_rest.restapi.request.ExtendedRequest;
@@ -53,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.login_sign_in_button)
     Button mSignInButton;
 
+    @BindView(R.id.login_sign_in_text)
+    TextView signupText;
+
     ProgressDialog progressDialog;
 
     @Override
@@ -76,6 +80,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        signupText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 

@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, ProfileActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_all_courses) {
-
+            Intent i = new Intent(this, CourseListActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_vn_Science) {
 
         } else if (id == R.id.nav_contact_us) {

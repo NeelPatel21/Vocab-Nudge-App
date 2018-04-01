@@ -83,6 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
                 attemptUpdate();
             }
         });
+
     }
 
     /**

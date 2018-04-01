@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,31 +15,31 @@
 
     <TextView
         android:id="@+id/heading"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_padding"
         android:textColor="@color/font_Dark"
         android:textSize="@dimen/font_size_h3"
-        android:text="Your Profile"
+        android:gravity="center"
+        android:text="Sign-up"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp"/>
 
     <!--<TextView-->
-        <!--android:id="@+id/username_label"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/heading"-->
-        <!--android:layout_margin="@dimen/default_padding"-->
-        <!--android:textColor="@color/font_Dark"-->
-        <!--android:textSize="@dimen/font_size_h5"-->
-        <!--android:text="User Name :- "/>-->
+    <!--android:id="@+id/username_label"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/heading"-->
+    <!--android:layout_margin="@dimen/default_padding"-->
+    <!--android:textColor="@color/font_Dark"-->
+    <!--android:textSize="@dimen/font_size_h5"-->
+    <!--android:text="User Name :- "/>-->
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.design.widget.TextInputEditText
             android:id="@+id/username_editText"
-            android:editable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/email_label"
@@ -48,28 +47,27 @@
             android:layout_alignParentRight="true"
             android:ems="10"
             android:hint="username"
-            android:inputType="none"
-            android:text="max_lance"/>
+            android:inputType="text"
+            android:text=""/>
     </android.support.design.widget.TextInputLayout>
 
     <!--<TextView-->
-        <!--android:id="@+id/email_label"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/username_editText"-->
-        <!--android:layout_margin="@dimen/default_padding"-->
-        <!--android:textColor="@color/font_Dark"-->
-        <!--android:textSize="@dimen/font_size_h5"-->
-        <!--android:text="Email Id :- "-->
-        <!--tools:layout_editor_absoluteY="0dp"-->
-        <!--tools:layout_editor_absoluteX="0dp"/>-->
+    <!--android:id="@+id/email_label"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/username_editText"-->
+    <!--android:layout_margin="@dimen/default_padding"-->
+    <!--android:textColor="@color/font_Dark"-->
+    <!--android:textSize="@dimen/font_size_h5"-->
+    <!--android:text="Email Id :- "-->
+    <!--tools:layout_editor_absoluteY="0dp"-->
+    <!--tools:layout_editor_absoluteX="0dp"/>-->
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.design.widget.TextInputEditText
             android:id="@+id/email_editText"
-            android:editable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/username_editText"
@@ -77,20 +75,20 @@
             android:layout_alignParentRight="true"
             android:ems="10"
             android:hint="email id"
-            android:inputType="none"
-            android:text="max_14@gmail.com"/>
+            android:inputType="textWebEmailAddress"
+            android:text=""/>
     </android.support.design.widget.TextInputLayout>
     <!--<TextView-->
-        <!--android:id="@+id/firstName_label"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/email_label"-->
-        <!--android:layout_margin="@dimen/default_padding"-->
-        <!--android:textColor="@color/font_Dark"-->
-        <!--android:textSize="@dimen/font_size_h5"-->
-        <!--android:text="First Name :- "-->
-        <!--tools:layout_editor_absoluteY="0dp"-->
-        <!--tools:layout_editor_absoluteX="0dp"/>-->
+    <!--android:id="@+id/firstName_label"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/email_label"-->
+    <!--android:layout_margin="@dimen/default_padding"-->
+    <!--android:textColor="@color/font_Dark"-->
+    <!--android:textSize="@dimen/font_size_h5"-->
+    <!--android:text="First Name :- "-->
+    <!--tools:layout_editor_absoluteY="0dp"-->
+    <!--tools:layout_editor_absoluteX="0dp"/>-->
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -104,21 +102,21 @@
             android:layout_alignBottom="@+id/firstName_label"
             android:layout_alignParentRight="true"
             android:ems="10"
-            android:hint="First name"
+            android:hint="First name (optional)"
             android:inputType="text"
-            android:text="Max"/>
+            android:text=""/>
     </android.support.design.widget.TextInputLayout>
     <!--<TextView-->
-        <!--android:id="@+id/lastName_label"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/firstName_label"-->
-        <!--android:layout_margin="@dimen/default_padding"-->
-        <!--android:textColor="@color/font_Dark"-->
-        <!--android:textSize="@dimen/font_size_h5"-->
-        <!--android:text="Last Name :- "-->
-        <!--tools:layout_editor_absoluteY="0dp"-->
-        <!--tools:layout_editor_absoluteX="0dp"/>-->
+    <!--android:id="@+id/lastName_label"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/firstName_label"-->
+    <!--android:layout_margin="@dimen/default_padding"-->
+    <!--android:textColor="@color/font_Dark"-->
+    <!--android:textSize="@dimen/font_size_h5"-->
+    <!--android:text="Last Name :- "-->
+    <!--tools:layout_editor_absoluteY="0dp"-->
+    <!--tools:layout_editor_absoluteX="0dp"/>-->
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -133,22 +131,22 @@
             android:layout_alignParentRight="true"
             android:ems="10"
             android:inputType="text"
-            android:text="Lance"
-            android:hint="Last name"
+            android:text=""
+            android:hint="Last name (optional)"
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="0dp"/>
     </android.support.design.widget.TextInputLayout>
     <!--<TextView-->
-        <!--android:id="@+id/passwd_label"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/lastName_label"-->
-        <!--android:layout_margin="@dimen/default_padding"-->
-        <!--android:textColor="@color/font_Dark"-->
-        <!--android:textSize="@dimen/font_size_h5"-->
-        <!--android:text="Password :- "-->
-        <!--tools:layout_editor_absoluteY="0dp"-->
-        <!--tools:layout_editor_absoluteX="0dp"/>-->
+    <!--android:id="@+id/passwd_label"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/lastName_label"-->
+    <!--android:layout_margin="@dimen/default_padding"-->
+    <!--android:textColor="@color/font_Dark"-->
+    <!--android:textSize="@dimen/font_size_h5"-->
+    <!--android:text="Password :- "-->
+    <!--tools:layout_editor_absoluteY="0dp"-->
+    <!--tools:layout_editor_absoluteX="0dp"/>-->
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -169,16 +167,16 @@
             tools:layout_editor_absoluteX="0dp"/>
     </android.support.design.widget.TextInputLayout>
     <!--<TextView-->
-        <!--android:id="@+id/confirm_passwd_label"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/passwd_label"-->
-        <!--android:layout_margin="@dimen/default_padding"-->
-        <!--android:textColor="@color/font_Dark"-->
-        <!--android:textSize="@dimen/font_size_h5"-->
-        <!--android:text="Confirm Password :- "-->
-        <!--tools:layout_editor_absoluteY="0dp"-->
-        <!--tools:layout_editor_absoluteX="0dp"/>-->
+    <!--android:id="@+id/confirm_passwd_label"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/passwd_label"-->
+    <!--android:layout_margin="@dimen/default_padding"-->
+    <!--android:textColor="@color/font_Dark"-->
+    <!--android:textSize="@dimen/font_size_h5"-->
+    <!--android:text="Confirm Password :- "-->
+    <!--tools:layout_editor_absoluteY="0dp"-->
+    <!--tools:layout_editor_absoluteX="0dp"/>-->
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -194,30 +192,26 @@
             android:ems="10"
             android:inputType="textPassword"
             android:text=""
-            android:hint="Confirm password"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="0dp"/>
+            android:hint="Confirm password"/>
     </android.support.design.widget.TextInputLayout>
+
     <Button
-        android:id="@+id/update_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/signup_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/double_default_padding"
         android:layout_below="@+id/confirm_passwd_label"
         android:layout_centerHorizontal="true"
-        android:text="Update"
-        tools:layout_editor_absoluteY="330dp"
-        tools:layout_editor_absoluteX="148dp"/>
+        android:text="Sign up"/>
 
     <TextView
-        android:id="@+id/passwd_hint_label"
-        android:layout_width="wrap_content"
+        android:id="@+id/sign_in_login_text"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_h5"
         android:layout_height="wrap_content"
-        android:layout_below="@id/update_button"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/default_padding"
-        android:textSize="@dimen/font_size_h6"
-        android:text="Note:- leave password and confirm password field blank if you don't want to change password"
-        tools:layout_editor_absoluteY="471dp"
-        tools:layout_editor_absoluteX="0dp"/>
+        android:layout_margin="@dimen/double_default_padding"
+        android:text="Already registered!!\nSign-in"/>
+
 </LinearLayout>
 </ScrollView>
