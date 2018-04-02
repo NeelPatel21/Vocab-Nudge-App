@@ -1,26 +1,29 @@
 package tk.vn.app.presentation;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import tk.vn.app.R;
 
-import static tk.vn.app.R.id.container;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CourseFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CourseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class CourseFragment extends Fragment {
+
+//    Unbinder unbinder;
+//
+//    @BindView(R.id.course_progress_card)
+    View courseCard;
 
     public CourseFragment() {
         // Required empty public constructor
@@ -49,7 +52,28 @@ public class CourseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course, container, false);
+        View view = inflater.inflate(R.layout.fragment_course, container, false);
+
+        // bind view using butter knife
+//        unbinder = ButterKnife.bind(this, view);
+
+        courseCard = view.findViewById(R.id.course_progress_card);
+
+        courseCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCourseView(v);
+            }
+        });
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+    private void openCourseView(View view){
+        Log.i("test","onclick");
+//        Toast.makeText(getContext(), "cacacsacac", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getContext(), CourseViewActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -62,4 +86,10 @@ public class CourseFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // unbind the view to free some memory
+//        unbinder.unbind();
+    }
 }

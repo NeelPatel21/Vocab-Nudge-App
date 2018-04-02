@@ -104,10 +104,16 @@ public class MainActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
+            String displayName = "Hi";
             @Override
             public void consume(UserBean userBean) {
                 if(userBean != null)
-                    headerText.setText(userBean.getFirstName()+" "+userBean.getLastName());
+                    if(userBean.getFirstName()!=null && !userBean.getFirstName().isEmpty()){
+                        displayName+=", "+userBean.getFirstName();
+                        if(userBean.getLastName()!=null && !userBean.getLastName().isEmpty())
+                            displayName+=" "+userBean.getLastName();
+                    }
+                    headerText.setText(displayName);
                 //TODO implement logic for error in fetching profile
             }
         });
@@ -154,7 +160,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        // Handle course_view_navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {

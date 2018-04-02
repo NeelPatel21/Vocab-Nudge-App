@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_viewAll"
+        android:icon="@drawable/all_cards_enabled"
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_learning"
+        android:icon="@drawable/know_enabled"
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_fail"
+        android:icon="@drawable/dont_know_enabled"
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_bookmark"
+        android:icon="@drawable/bookmark_enabled"
+        android:title=""/>
+
+    <item
+        android:id="@+id/navigation_master"
+        android:icon="@drawable/mastered_enabled"
+        android:title=""/>
+</menu>
