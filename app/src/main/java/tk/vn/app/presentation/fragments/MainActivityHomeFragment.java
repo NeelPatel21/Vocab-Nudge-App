@@ -1,4 +1,4 @@
-package tk.vn.app.presentation;
+package tk.vn.app.presentation.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,12 +13,12 @@ import tk.vn.app.R;
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link MainActivityHomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class MainActivityHomeFragment extends Fragment {
 
-    public HomeFragment() {
+    public MainActivityHomeFragment() {
         // Required empty public constructor
     }
 
@@ -26,11 +26,11 @@ public class HomeFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment MainActivityHomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static MainActivityHomeFragment newInstance() {
+        MainActivityHomeFragment fragment = new MainActivityHomeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

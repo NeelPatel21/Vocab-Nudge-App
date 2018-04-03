@@ -1,4 +1,4 @@
-package tk.vn.app.presentation;
+package tk.vn.app.presentation.fragments;
 
 
 import android.os.Bundle;
@@ -11,21 +11,19 @@ import tk.vn.app.R;
 
 /**
  * A fragment with a Google +1 button.
- * Use the {@link CourseViewActivityMasterFragment#newInstance} factory method to
+ * Use the {@link CourseViewActivityAllFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseViewActivityMasterFragment extends Fragment {
+public class CourseViewActivityAllFragment extends Fragment {
 
-    public CourseViewActivityMasterFragment() {
+    public CourseViewActivityAllFragment() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static CourseViewActivityMasterFragment newInstance(/*String param1, String param2*/) {
-        CourseViewActivityMasterFragment fragment = new CourseViewActivityMasterFragment();
+    public static CourseViewActivityAllFragment newInstance(/*String param1, String param2*/) {
+        CourseViewActivityAllFragment fragment = new CourseViewActivityAllFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,7 +41,7 @@ public class CourseViewActivityMasterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_course_view_activity_master, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_view_activity_all, container, false);
 
         return view;
     }

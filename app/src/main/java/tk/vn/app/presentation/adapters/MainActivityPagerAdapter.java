@@ -1,4 +1,4 @@
-package tk.vn.app.presentation;
+package tk.vn.app.presentation.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import tk.vn.app.R;
+import tk.vn.app.presentation.fragments.MainActivityCourseFragment;
+import tk.vn.app.presentation.fragments.MainActivityHomeFragment;
 
 
 /**
@@ -44,8 +46,8 @@ public final class MainActivityPagerAdapter extends FragmentPagerAdapter
     }
 
     private void setup(){
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(CourseFragment.newInstance());
+        fragments.add(MainActivityHomeFragment.newInstance());
+        fragments.add(MainActivityCourseFragment.newInstance());
 
         fragmentNames.add("Home");
         fragmentNames.add("My Course");
@@ -78,7 +80,7 @@ public final class MainActivityPagerAdapter extends FragmentPagerAdapter
         super.setPrimaryItem(container, position, object);
     }
 
-    void updateTabIcons(int activeTabIndex) {
+    public void updateTabIcons(int activeTabIndex) {
         if(activeTabIndex == 0){
             tabLayout.getTabAt(0).setIcon(tabIcons.get(IC_HOME_ACTIVE));
             toolbar.setTitle(fragmentNames.get(0));

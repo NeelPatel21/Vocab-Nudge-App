@@ -1,4 +1,4 @@
-package tk.vn.app.presentation;
+package tk.vn.app.presentation.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,22 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tk.vn.app.R;
+import tk.vn.app.presentation.CourseViewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * to handle interaction events.
- * Use the {@link CourseFragment#newInstance} factory method to
+ * Use the {@link MainActivityCourseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseFragment extends Fragment {
+public class MainActivityCourseFragment extends Fragment {
 
 //    Unbinder unbinder;
 //
 //    @BindView(R.id.course_progress_card)
     View courseCard;
 
-    public CourseFragment() {
+    public MainActivityCourseFragment() {
         // Required empty public constructor
     }
 
@@ -33,11 +34,11 @@ public class CourseFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment CourseFragment.
+     * @return A new instance of fragment MainActivityCourseFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CourseFragment newInstance() {
-        CourseFragment fragment = new CourseFragment();
+    public static MainActivityCourseFragment newInstance() {
+        MainActivityCourseFragment fragment = new MainActivityCourseFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

@@ -1,4 +1,4 @@
-package tk.vn.app.presentation;
+package tk.vn.app.presentation.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tk.vn.app.presentation.fragments.CourseViewActivityAllFragment;
+import tk.vn.app.presentation.fragments.CourseViewActivityLearningFragment;
+import tk.vn.app.presentation.fragments.CourseViewActivityMasterFragment;
+import tk.vn.app.presentation.fragments.CourseViewActivityWrongFragment;
 
 
 /**

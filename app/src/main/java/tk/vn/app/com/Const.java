@@ -12,5 +12,6 @@ public class Const {
     public final static String SHARED_PREF_TOKEN = "token";
     public final static int PASS_LENGTH = 5;
     public final static String USER_DETAIL = "user_detail";
-//    public final static String SHARED_PREF_DESPLAY_NAME = "user_display_name";
+    public final static String COURSE_DETAIL = "course_detail";
+    public final static String SHARED_PREF_COURSE_ID = "course_id";
 }

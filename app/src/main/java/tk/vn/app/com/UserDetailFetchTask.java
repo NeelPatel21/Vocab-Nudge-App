@@ -1,5 +1,6 @@
 package tk.vn.app.com;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,6 +32,7 @@ public class UserDetailFetchTask {
         this.consumer = consumer;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void fetchUserBean(){
         SharedPreferences sp = context.getSharedPreferences(Const.DEF_SHARED_PREF,
                                     Context.MODE_PRIVATE);
@@ -60,6 +62,7 @@ public class UserDetailFetchTask {
             protected void onPostExecute(UserBean userBean) {
                 super.onPostExecute(userBean);
                 progressDialog.dismiss();
+                UserDetailFetchTask.this.userBean = userBean;
                 if(consumer != null)
                     consumer.consume(userBean);
                 else

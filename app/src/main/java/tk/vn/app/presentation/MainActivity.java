@@ -28,6 +28,7 @@ import tk.vn.app.com.LogoutTask;
 import tk.vn.app.com.RunTimeStore;
 import tk.vn.app.com.UserDetailFetchTask;
 import tk.vn.app.model.UserBean;
+import tk.vn.app.presentation.adapters.MainActivityPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import tk.vn.app.R;
+import tk.vn.app.presentation.adapters.CourseViewActivityPagerAdapter;
 
 public class CourseViewActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

@@ -1,4 +1,4 @@
-package tk.vn.app.presentation;
+package tk.vn.app.presentation.fragments;
 
 
 import android.os.Bundle;
@@ -11,19 +11,21 @@ import tk.vn.app.R;
 
 /**
  * A fragment with a Google +1 button.
- * Use the {@link CourseViewActivityWrongFragment#newInstance} factory method to
+ * Use the {@link CourseViewActivityMasterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseViewActivityWrongFragment extends Fragment {
+public class CourseViewActivityMasterFragment extends Fragment {
 
-    public CourseViewActivityWrongFragment() {
+    public CourseViewActivityMasterFragment() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static CourseViewActivityWrongFragment newInstance(/*String param1, String param2*/) {
-        CourseViewActivityWrongFragment fragment = new CourseViewActivityWrongFragment();
+    public static CourseViewActivityMasterFragment newInstance(/*String param1, String param2*/) {
+        CourseViewActivityMasterFragment fragment = new CourseViewActivityMasterFragment();
         Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,13 +33,17 @@ public class CourseViewActivityWrongFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_course_view_activity_wrong, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_view_activity_master, container, false);
 
         return view;
     }

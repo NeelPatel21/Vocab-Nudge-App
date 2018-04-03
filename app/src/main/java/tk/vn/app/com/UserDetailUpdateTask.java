@@ -1,5 +1,6 @@
 package tk.vn.app.com;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,6 +33,7 @@ public class UserDetailUpdateTask {
         this.consumer = consumer;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void updateUser(UserBean userBean){
         SharedPreferences sp = context.getSharedPreferences(Const.DEF_SHARED_PREF,
                                     Context.MODE_PRIVATE);

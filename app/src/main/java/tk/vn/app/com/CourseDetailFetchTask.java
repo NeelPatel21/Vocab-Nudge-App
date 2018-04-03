@@ -1,5 +1,6 @@
 package tk.vn.app.com;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +13,7 @@ import com.simple_rest.s_rest.restapi.request.SimpleRequest;
 
 import org.springframework.http.HttpMethod;
 
-import tk.vn.app.model.UserBean;
+import tk.vn.app.model.CourseBean;
 
 /**
  * Created by neelp on 28-03-2018.
@@ -21,17 +22,18 @@ import tk.vn.app.model.UserBean;
 public class CourseDetailFetchTask {
 
     private final Context context;
-    private SimpleRequest<UserBean> rt;
+    private SimpleRequest<CourseBean> rt;
     private ProgressDialog progressDialog;
-    private UserBean userBean;
-    private Consumer<UserBean> consumer;
+    private CourseBean courseBean;
+    private Consumer<CourseBean> consumer;
 
-    public CourseDetailFetchTask(@NonNull Context context, Consumer<UserBean> consumer){
+    public CourseDetailFetchTask(@NonNull Context context, Consumer<CourseBean> consumer){
         this.context = context;
         this.consumer = consumer;
     }
 
-    public void fetchUserBean(){
+    @SuppressLint("StaticFieldLeak")
+    public void fetchCourseBean(long courseId){
         SharedPreferences sp = context.getSharedPreferences(Const.DEF_SHARED_PREF,
                                     Context.MODE_PRIVATE);
         String token = sp.getString(Const.SHARED_PREF_TOKEN,"");;
@@ -41,8 +43,8 @@ public class CourseDetailFetchTask {
             return;
         }
 
-        Log.i(CourseDetailFetchTask.class.getName(),"retrieving user details with token :- "+token);
-        rt = new SimpleRequest<UserBean>(UserBean.class, HttpMethod.GET,
+        Log.i(CourseDetailFetchTask.class.getName(),"retrieving course detail with token :- "+token);
+        rt = new SimpleRequest<CourseBean>(CourseBean.class, HttpMethod.GET,
                 HeaderTools.CONTENT_TYPE_JSON,
                 HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token)){
 
@@ -51,30 +53,31 @@ public class CourseDetailFetchTask {
                 super.onPreExecute();
                 progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage("Please wait");
-                progressDialog.setTitle("loading");
+                progressDialog.setTitle("Retrieving Course");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
             }
 
             @Override
-            protected void onPostExecute(UserBean userBean) {
-                super.onPostExecute(userBean);
+            protected void onPostExecute(CourseBean courseBean) {
+                super.onPostExecute(courseBean);
                 progressDialog.dismiss();
+                CourseDetailFetchTask.this.courseBean = courseBean;
                 if(consumer != null)
-                    consumer.consume(userBean);
+                    consumer.consume(courseBean);
                 else
                     Log.i(CourseDetailFetchTask.class.getName(),"consumer reference null");
             }
 
         };
-        rt.execute(Const.API_BASE_URL+"/user/profile");
+        rt.execute(Const.API_BASE_URL+"/courses/course/"+courseId);
     }
 
-    public @Nullable UserBean getUserBean(){
-        return userBean;
+    public @Nullable CourseBean getCourseBean(){
+        return courseBean;
     }
 
-    public SimpleRequest<UserBean> getRt() {
+    public SimpleRequest<CourseBean> getRt() {
         return rt;
     }
 
@@ -82,11 +85,11 @@ public class CourseDetailFetchTask {
         return progressDialog;
     }
 
-    public Consumer<UserBean> getConsumer() {
+    public Consumer<CourseBean> getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(Consumer<UserBean> consumer) {
+    public void setConsumer(Consumer<CourseBean> consumer) {
         this.consumer = consumer;
     }
 }
