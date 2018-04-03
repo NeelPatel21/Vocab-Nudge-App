@@ -4,7 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.springframework.http.HttpStatus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -12,6 +18,7 @@ import tk.vn.app.R;
 import tk.vn.app.com.Const;
 import tk.vn.app.com.Consumer;
 import tk.vn.app.com.CourseDetailsFetchTask;
+import tk.vn.app.com.CourseSubscribeTask;
 import tk.vn.app.model.CompactSubscriptionBean;
 
 public class CourseListActivity extends AppCompatActivity {
@@ -52,5 +59,34 @@ public class CourseListActivity extends AppCompatActivity {
     private void config(CompactSubscriptionBean[] list){
         final CourseListItemAdapter adapter = new CourseListItemAdapter(this, list);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CourseSubscribeTask courseSubscribeTask = new CourseSubscribeTask(CourseListActivity.this,
+                        new Consumer<HttpStatus>() {
+                            @Override
+                            public void consume(HttpStatus httpStatus) {
+                                subscribePostProcessor(httpStatus);
+                            }
+                        });
+                courseSubscribeTask.subscribe(((CompactSubscriptionBean)adapterView.getItemAtPosition(i))
+                        .getCourseId());
+            }
+        });
+    }
+    
+    private void subscribePostProcessor(HttpStatus httpStatus){
+        if(httpStatus!=null && httpStatus.equals(HttpStatus.ACCEPTED)){
+            // created successful
+            Log.i("subscribe course","successfully");
+            Toast.makeText(this,"subscription successful",Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this,CourseListActivity.class);
+            startActivity(i);
+            finish();
+        }else{
+            // sign up fail
+            Log.w("subscribe course","subscription fail, response status :- "+httpStatus);
+            Toast.makeText(this,"subscription fail",Toast.LENGTH_SHORT).show();
+        }
     }
 }

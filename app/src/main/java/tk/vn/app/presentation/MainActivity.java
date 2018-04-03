@@ -25,6 +25,7 @@ import tk.vn.app.R;
 import tk.vn.app.com.Const;
 import tk.vn.app.com.Consumer;
 import tk.vn.app.com.LogoutTask;
+import tk.vn.app.com.RunTimeStore;
 import tk.vn.app.com.UserDetailFetchTask;
 import tk.vn.app.model.UserBean;
 
@@ -59,14 +60,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        // redirect to main activity if already logged in
-        SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
-        String token = sp.getString(Const.SHARED_PREF_TOKEN, "");
-        if(token.isEmpty()){
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivity(i);
-            finish();
-        }
+        fatchUserDetail();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -103,21 +97,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
+        UserBean userBean = RunTimeStore.get(Const.USER_DETAIL);
+        if(userBean != null) {
             String displayName = "Hi";
-            @Override
-            public void consume(UserBean userBean) {
-                if(userBean != null)
-                    if(userBean.getFirstName()!=null && !userBean.getFirstName().isEmpty()){
-                        displayName+=", "+userBean.getFirstName();
-                        if(userBean.getLastName()!=null && !userBean.getLastName().isEmpty())
-                            displayName+=" "+userBean.getLastName();
-                    }
-                    headerText.setText(displayName);
-                //TODO implement logic for error in fetching profile
+            if (userBean.getFirstName() != null && !userBean.getFirstName().isEmpty()) {
+                displayName += ", " + userBean.getFirstName();
+                if (userBean.getLastName() != null && !userBean.getLastName().isEmpty())
+                    displayName += " " + userBean.getLastName();
             }
-        });
-        task.fetchUserBean();
+            headerText.setText(displayName);
+        }else{
+            fatchUserDetail();
+        }
     }
 
 
@@ -206,6 +197,36 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void fatchUserDetail(){
+        // redirect to main activity if already logged in
+        SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
+        String token = sp.getString(Const.SHARED_PREF_TOKEN, "");
+        if(token.isEmpty()){
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
+            @Override
+            public void consume(UserBean userBean) {
+                if(userBean != null){
+                    RunTimeStore.storeObj(Const.USER_DETAIL,userBean);
+                }else{
+                    SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.remove(Const.SHARED_PREF_TOKEN);
+                    editor.commit();
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                //TODO implement logic for error in fetching profile
+            }
+        });
+        task.fetchUserBean();
     }
 
 }

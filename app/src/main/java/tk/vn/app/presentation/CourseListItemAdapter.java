@@ -36,11 +36,19 @@ public class CourseListItemAdapter extends ArrayAdapter<CompactSubscriptionBean>
         TextView subscriptionInfo = (TextView) rowView.findViewById(R.id.courseInfo);
 
         final CompactSubscriptionBean t = list[position];
+//        rowView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 //        System.out.println("adapter "+t);
         subscriptionName.setText(t.getCourseName() != null ? t.getCourseName() : "");
         subscriptionInfo.setText(t.getInfo() != null ? t.getInfo() : "");
         subscriptionStatus.setText((t.getSubscriptionStatus() != null ? t.getSubscriptionStatus() : ""));
-
+        if(t.getSubscriptionStatus()!=null&&!t.getSubscriptionStatus().isEmpty()){
+            subscriptionStatus.setVisibility(View.VISIBLE);
+        }
         // TODO verify details configured in view
 
         return rowView;
@@ -50,5 +58,7 @@ public class CourseListItemAdapter extends ArrayAdapter<CompactSubscriptionBean>
     public int getCount() {
         return list.length;
     }
+
+
 
 }

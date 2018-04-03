@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import tk.vn.app.R;
 import tk.vn.app.com.Const;
 import tk.vn.app.com.Consumer;
+import tk.vn.app.com.RunTimeStore;
 import tk.vn.app.com.UserDetailFetchTask;
 import tk.vn.app.com.UserDetailUpdateTask;
 import tk.vn.app.model.UserBean;
@@ -45,6 +46,8 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.update_button)
     Button updateButton;
 
+    UserBean userBean;
+
     UserDetailUpdateTask ut;
     
     @Override
@@ -64,19 +67,28 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
         }
 
-        UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
-            @Override
-            public void consume(UserBean userBean) {
-                if(userBean != null){
-                    usernameView.setText(userBean.getUserName());
-                    firstNameView.setText(userBean.getFirstName());
-                    lastNameView.setText(userBean.getLastName());
-                    emailIdView.setText(userBean.getEmailId());
+        userBean = RunTimeStore.get(Const.USER_DETAIL);
+        if(userBean != null){
+            usernameView.setText(userBean.getUserName());
+            firstNameView.setText(userBean.getFirstName());
+            lastNameView.setText(userBean.getLastName());
+            emailIdView.setText(userBean.getEmailId());
+        }else{
+            UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
+                @Override
+                public void consume(UserBean userBean) {
+                    if(userBean != null){
+                        usernameView.setText(userBean.getUserName());
+                        firstNameView.setText(userBean.getFirstName());
+                        lastNameView.setText(userBean.getLastName());
+                        emailIdView.setText(userBean.getEmailId());
+                        ProfileActivity.this.userBean = userBean;
+                    }
+                    //TODO implement logic for error in fetching profile
                 }
-                //TODO implement logic for error in fetching profile
-            }
-        });
-        task.fetchUserBean();
+            });
+            task.fetchUserBean();
+        }
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,6 +169,7 @@ public class ProfileActivity extends AppCompatActivity {
             // update successful
             Log.i("Update user profile","performed successfully");
             Toast.makeText(this,"update successful",Toast.LENGTH_SHORT).show();
+            fatchUserDetail();
 //            Intent i = new Intent(this, MainActivity.class);
 //            startActivity(i);
 //            finish();
@@ -167,4 +180,35 @@ public class ProfileActivity extends AppCompatActivity {
         }
         ut = null;
     }
+
+    private void fatchUserDetail(){
+        // redirect to main activity if already logged in
+        SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
+        String token = sp.getString(Const.SHARED_PREF_TOKEN, "");
+        if(token.isEmpty()){
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
+            @Override
+            public void consume(UserBean userBean) {
+                if(userBean != null){
+                    RunTimeStore.storeObj(Const.USER_DETAIL,userBean);
+                }else{
+                    SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.remove(Const.SHARED_PREF_TOKEN);
+                    editor.commit();
+                    Intent i = new Intent(ProfileActivity.this, LoginActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                //TODO implement logic for error in fetching profile
+            }
+        });
+        task.fetchUserBean();
+    }
+
 }

@@ -1,9 +1,12 @@
 package tk.vn.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by neelp on 28-03-2018.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserBean {
 
     private String userName;
@@ -11,6 +14,7 @@ public class UserBean {
     private String firstName;
     private String lastName;
     private String emailId;
+    private int credits;
 
     public String getUserName() {
         return userName;
@@ -50,5 +54,13 @@ public class UserBean {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 }
