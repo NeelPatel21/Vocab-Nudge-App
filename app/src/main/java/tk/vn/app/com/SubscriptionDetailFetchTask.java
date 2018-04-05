@@ -13,44 +13,43 @@ import com.simple_rest.s_rest.restapi.request.SimpleRequest;
 
 import org.springframework.http.HttpMethod;
 
-import tk.vn.app.model.UserBean;
+import tk.vn.app.model.SubscriptionBean;
 
 /**
  * Created by neelp on 28-03-2018.
  */
 
-public class UserDetailFetchTask {
+public class SubscriptionDetailFetchTask {
 
     private final Context context;
-    private SimpleRequest<UserBean> rt;
+    private SimpleRequest<SubscriptionBean> rt;
     private ProgressDialog progressDialog;
-    private UserBean userBean;
-    private Consumer<UserBean> consumer;
+    private SubscriptionBean subscriptionBean;
+    private Consumer<SubscriptionBean> consumer;
     private boolean showProgress;
 
-    public UserDetailFetchTask(@NonNull Context context, Consumer<UserBean> consumer){
+    public SubscriptionDetailFetchTask(@NonNull Context context, Consumer<SubscriptionBean> consumer){
         this.context = context;
         this.consumer = consumer;
     }
-
-    public UserDetailFetchTask(@NonNull Context context, Consumer<UserBean> consumer, boolean showProgress){
+    public SubscriptionDetailFetchTask(@NonNull Context context, Consumer<SubscriptionBean> consumer, boolean showProgress){
         this(context,consumer);
         this.showProgress = showProgress;
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void fetchUserBean(){
+    public void fetchSubscriptionBean(long subscriptionId){
         SharedPreferences sp = context.getSharedPreferences(Const.DEF_SHARED_PREF,
                                     Context.MODE_PRIVATE);
         String token = sp.getString(Const.SHARED_PREF_TOKEN,"");;
 
         if(token == null || token.isEmpty()){
-            Log.w(UserDetailFetchTask.class.getName(),"token not retrieved from SharedPreferences");
+            Log.w(SubscriptionDetailFetchTask.class.getName(),"token not retrieved from SharedPreferences");
             return;
         }
 
-        Log.i(UserDetailFetchTask.class.getName(),"retrieving user details with token :- "+token);
-        rt = new SimpleRequest<UserBean>(UserBean.class, HttpMethod.GET,
+        Log.i(SubscriptionDetailFetchTask.class.getName(),"retrieving subscription detail with token :- "+token);
+        rt = new SimpleRequest<SubscriptionBean>(SubscriptionBean.class, HttpMethod.GET,
                 HeaderTools.CONTENT_TYPE_JSON,
                 HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token)){
 
@@ -60,33 +59,33 @@ public class UserDetailFetchTask {
                 if(showProgress){
                     progressDialog = new ProgressDialog(context);
                     progressDialog.setMessage("Please wait");
-                    progressDialog.setTitle("loading");
+                    progressDialog.setTitle("Retrieving Subscription");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
                 }
             }
 
             @Override
-            protected void onPostExecute(UserBean userBean) {
-                super.onPostExecute(userBean);
+            protected void onPostExecute(SubscriptionBean subscriptionBean) {
+                super.onPostExecute(subscriptionBean);
                 if(showProgress)
                     progressDialog.dismiss();
-                UserDetailFetchTask.this.userBean = userBean;
+                SubscriptionDetailFetchTask.this.subscriptionBean = subscriptionBean;
                 if(consumer != null)
-                    consumer.consume(userBean);
+                    consumer.consume(subscriptionBean);
                 else
-                    Log.i(UserDetailFetchTask.class.getName(),"consumer reference null");
+                    Log.i(SubscriptionDetailFetchTask.class.getName(),"consumer reference null");
             }
 
         };
-        rt.execute(Const.API_BASE_URL+"/user/profile");
+        rt.execute(Const.API_BASE_URL+"/courses/subscription/"+subscriptionId);
     }
 
-    public @Nullable UserBean getUserBean(){
-        return userBean;
+    public @Nullable SubscriptionBean getSubscriptionBean(){
+        return subscriptionBean;
     }
 
-    public SimpleRequest<UserBean> getRt() {
+    public SimpleRequest<SubscriptionBean> getRt() {
         return rt;
     }
 
@@ -94,11 +93,11 @@ public class UserDetailFetchTask {
         return progressDialog;
     }
 
-    public Consumer<UserBean> getConsumer() {
+    public Consumer<SubscriptionBean> getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(Consumer<UserBean> consumer) {
+    public void setConsumer(Consumer<SubscriptionBean> consumer) {
         this.consumer = consumer;
     }
 }

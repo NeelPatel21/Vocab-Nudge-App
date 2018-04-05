@@ -26,10 +26,15 @@ public class CourseDetailFetchTask {
     private ProgressDialog progressDialog;
     private CourseBean courseBean;
     private Consumer<CourseBean> consumer;
+    private boolean showProgress;
 
     public CourseDetailFetchTask(@NonNull Context context, Consumer<CourseBean> consumer){
         this.context = context;
         this.consumer = consumer;
+    }
+    public CourseDetailFetchTask(@NonNull Context context, Consumer<CourseBean> consumer, boolean showProgress){
+        this(context,consumer);
+        this.showProgress = showProgress;
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -51,17 +56,20 @@ public class CourseDetailFetchTask {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog = new ProgressDialog(context);
-                progressDialog.setMessage("Please wait");
-                progressDialog.setTitle("Retrieving Course");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
+                if(showProgress) {
+                    progressDialog = new ProgressDialog(context);
+                    progressDialog.setMessage("Please wait");
+                    progressDialog.setTitle("Retrieving Course");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                }
             }
 
             @Override
             protected void onPostExecute(CourseBean courseBean) {
                 super.onPostExecute(courseBean);
-                progressDialog.dismiss();
+                if(showProgress)
+                    progressDialog.dismiss();
                 CourseDetailFetchTask.this.courseBean = courseBean;
                 if(consumer != null)
                     consumer.consume(courseBean);

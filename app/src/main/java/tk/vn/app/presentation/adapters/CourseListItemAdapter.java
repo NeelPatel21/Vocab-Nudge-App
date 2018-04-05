@@ -1,4 +1,4 @@
-package tk.vn.app.presentation;
+package tk.vn.app.presentation.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ public class CourseListItemAdapter extends ArrayAdapter<CompactSubscriptionBean>
     Context context;
     CompactSubscriptionBean[] list;
 
-    CourseListItemAdapter(Context context, CompactSubscriptionBean[] list) {
+    public CourseListItemAdapter(Context context, CompactSubscriptionBean[] list) {
         super(context, -1, list);
         this.list = list;
         this.context = context;

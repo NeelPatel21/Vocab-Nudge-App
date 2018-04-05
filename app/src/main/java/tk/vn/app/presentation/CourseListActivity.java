@@ -3,7 +3,9 @@ package tk.vn.app.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.springframework.http.HttpStatus;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,8 +26,11 @@ import tk.vn.app.com.CourseDetailFetchTask;
 import tk.vn.app.com.CourseListFetchTask;
 import tk.vn.app.com.CourseSubscribeTask;
 import tk.vn.app.com.RunTimeStore;
+import tk.vn.app.com.SubscriptionDetailFetchTask;
 import tk.vn.app.model.CompactSubscriptionBean;
 import tk.vn.app.model.CourseBean;
+import tk.vn.app.model.SubscriptionBean;
+import tk.vn.app.presentation.adapters.CourseListItemAdapter;
 
 public class CourseListActivity extends AppCompatActivity {
 
@@ -49,6 +56,7 @@ public class CourseListActivity extends AppCompatActivity {
 
         CourseListFetchTask task = new CourseListFetchTask(this, new Consumer<CompactSubscriptionBean[]>() {
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void consume(CompactSubscriptionBean[] list) {
                 if(list != null){
@@ -60,6 +68,7 @@ public class CourseListActivity extends AppCompatActivity {
         task.fetchSubscriptions();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void config(CompactSubscriptionBean[] list){
         final CourseListItemAdapter adapter = new CourseListItemAdapter(this, list);
         listView.setAdapter(adapter);
@@ -76,10 +85,37 @@ public class CourseListActivity extends AppCompatActivity {
                             }
                         });
 
-
                 courseSubscribeTask.subscribe(courseId);
             }
         });
+        checkForSubscription(list);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void checkForSubscription(CompactSubscriptionBean[] list){
+        long subscriptionId = Arrays.stream(list)
+                .filter(x->x.getSubscriptionStatus()!=null&&x.getSubscriptionStatus().equals("ACTIVE"))
+                .mapToLong(CompactSubscriptionBean::getSubscriptionId)
+                .findAny().orElse(-1);
+
+        if(subscriptionId >= 0){
+            // update preferences
+            SharedPreferences sharedPref = getSharedPreferences(Const.DEF_SHARED_PREF,
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putLong(Const.SHARED_PREF_SUBSCRIPTION_ID, subscriptionId);
+            editor.commit();
+            fetchSubscriptionDetail();
+        }else{
+            // update preferences
+            SharedPreferences sharedPref = getSharedPreferences(Const.DEF_SHARED_PREF,
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.remove(Const.SHARED_PREF_SUBSCRIPTION_ID);
+            editor.commit();
+            RunTimeStore.removeObj(Const.SUBSCRIPTION_DETAIL);
+        }
+
     }
 
     private void subscribePostProcessor(HttpStatus httpStatus, long courseId){
@@ -131,10 +167,42 @@ public class CourseListActivity extends AppCompatActivity {
                 if(courseBean != null){
                     RunTimeStore.storeObj(Const.COURSE_DETAIL,courseBean);
                     System.out.println(courseBean);
+
                 }
                 //TODO implement logic for error in fetching course
             }
         });
         task.fetchCourseBean(courseId);
+    }
+    
+    private void fetchSubscriptionDetail(){
+        SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
+
+        // redirect to main activity if already logged in
+        String token = sp.getString(Const.SHARED_PREF_TOKEN, "");
+        if(token.isEmpty()){
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        // retrieve subscriptionId
+        long subscriptionId = sp.getLong(Const.SHARED_PREF_SUBSCRIPTION_ID, 0);
+        if(subscriptionId == 0){
+            //TODO implement logic for no subscription active
+            return;
+        }
+
+        SubscriptionDetailFetchTask task = new SubscriptionDetailFetchTask(this, new Consumer<SubscriptionBean>() {
+            @Override
+            public void consume(SubscriptionBean subscriptionBean) {
+                if(subscriptionBean != null){
+                    RunTimeStore.storeObj(Const.SUBSCRIPTION_DETAIL,subscriptionBean);
+                    System.out.println(subscriptionBean);
+                }
+                //TODO implement logic for error in fetching subscription
+            }
+        });
+        task.fetchSubscriptionBean(subscriptionId);
     }
 }

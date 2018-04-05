@@ -14,4 +14,9 @@ public class Const {
     public final static String USER_DETAIL = "user_detail";
     public final static String COURSE_DETAIL = "course_detail";
     public final static String SHARED_PREF_COURSE_ID = "course_id";
+    public final static String SUBSCRIPTION_DETAIL = "subscription_detail";
+    public final static String SHARED_PREF_SUBSCRIPTION_ID = "subscription_id";
+    public final static String CARD_PROCESSOR = "card_processor";
+    public static final String FRAGMENT_REF_TITLE = "fragment_title";
+    public static final String FRAGMENT_REF_PROCESSOR = "fragment_processor";
 }

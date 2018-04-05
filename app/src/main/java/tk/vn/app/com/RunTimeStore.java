@@ -14,6 +14,10 @@ public class RunTimeStore {
         store.put(key,value);
     }
 
+    public synchronized static void removeObj(String key){
+        store.remove(key);
+    }
+
     public synchronized static Object getObj(String key){
         return store.get(key);
     }

@@ -46,10 +46,10 @@ public final class CourseViewActivityPagerAdapter extends FragmentPagerAdapter
     }
 
     private void setup(){
-        fragments.add(CourseViewActivityAllFragment.newInstance());
-        fragments.add(CourseViewActivityLearningFragment.newInstance());
-        fragments.add(CourseViewActivityWrongFragment.newInstance());
-        fragments.add(CourseViewActivityMasterFragment.newInstance());
+        fragments.add(CourseViewActivityAllFragment.newInstance("All cards"));
+        fragments.add(CourseViewActivityLearningFragment.newInstance("I know it"));
+        fragments.add(CourseViewActivityWrongFragment.newInstance("Don't know it yet!"));
+        fragments.add(CourseViewActivityMasterFragment.newInstance("My mastered goals"));
 
         fragmentNames.add("View All gards");
         fragmentNames.add("I know it");
