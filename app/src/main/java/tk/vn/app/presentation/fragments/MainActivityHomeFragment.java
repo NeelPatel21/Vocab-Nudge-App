@@ -1,13 +1,18 @@
 package tk.vn.app.presentation.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import tk.vn.app.R;
+import tk.vn.app.presentation.CardPlayActivity;
+import tk.vn.app.presentation.CourseViewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +50,28 @@ public class MainActivityHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        // bind view using butter knife
+//        unbinder = ButterKnife.bind(this, view);
+
+        TextView courseCard = view.findViewById(R.id.next_card_timing);
+
+        courseCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCardPlay(v);
+            }
+        });
+
+
+        return view;
+    }
+
+    private void openCardPlay(View view){
+        Log.i("test","onclick");
+//        Toast.makeText(getContext(), "cacacsacac", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getContext(), CardPlayActivity.class);
+        startActivity(i);
     }
 
     @Override

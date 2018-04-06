@@ -1,4 +1,4 @@
-package tk.vn.app.com;
+package tk.vn.app.com.net;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,6 +12,8 @@ import com.simple_rest.s_rest.restapi.request.HeaderTools;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
+import tk.vn.app.com.Const;
+import tk.vn.app.com.Consumer;
 import tk.vn.app.model.UserBean;
 
 /**

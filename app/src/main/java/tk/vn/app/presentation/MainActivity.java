@@ -24,9 +24,9 @@ import org.springframework.http.HttpStatus;
 import tk.vn.app.R;
 import tk.vn.app.com.Const;
 import tk.vn.app.com.Consumer;
-import tk.vn.app.com.LogoutTask;
+import tk.vn.app.com.net.LogoutTask;
 import tk.vn.app.com.RunTimeStore;
-import tk.vn.app.com.UserDetailFetchTask;
+import tk.vn.app.com.net.UserDetailFetchTask;
 import tk.vn.app.model.UserBean;
 import tk.vn.app.presentation.adapters.MainActivityPagerAdapter;
 

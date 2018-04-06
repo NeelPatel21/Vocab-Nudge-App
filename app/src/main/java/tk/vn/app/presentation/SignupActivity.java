@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import tk.vn.app.R;
 import tk.vn.app.com.Const;
 import tk.vn.app.com.Consumer;
-import tk.vn.app.com.UserSignupTask;
+import tk.vn.app.com.net.UserSignupTask;
 import tk.vn.app.model.LoginBean;
 import tk.vn.app.model.UserBean;
 

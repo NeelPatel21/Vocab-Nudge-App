@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,20 +13,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.springframework.http.HttpStatus;
-
 import java.util.List;
 
 import tk.vn.app.R;
 import tk.vn.app.com.CardPlayProcessor;
 import tk.vn.app.com.Const;
-import tk.vn.app.com.Consumer;
-import tk.vn.app.com.CourseSubscribeTask;
 import tk.vn.app.com.RunTimeStore;
-import tk.vn.app.model.CompactSubscriptionBean;
 import tk.vn.app.model.GoalBean;
-import tk.vn.app.presentation.CourseListActivity;
-import tk.vn.app.presentation.adapters.CourseListItemAdapter;
 import tk.vn.app.presentation.adapters.CourseViewGoalListItemAdapter;
 
 /**

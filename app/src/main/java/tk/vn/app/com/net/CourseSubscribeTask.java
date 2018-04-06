@@ -1,4 +1,4 @@
-package tk.vn.app.com;
+package tk.vn.app.com.net;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -8,54 +8,55 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.simple_rest.s_rest.restapi.request.ExtendedRequest;
 import com.simple_rest.s_rest.restapi.request.HeaderTools;
+import com.simple_rest.s_rest.restapi.request.SimpleRequest;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
-import tk.vn.app.model.UserBean;
+import tk.vn.app.com.Const;
+import tk.vn.app.com.Consumer;
 
 /**
  * Created by neelp on 28-03-2018.
  */
 
-public class UserDetailUpdateTask {
+public class CourseSubscribeTask {
 
     private final Context context;
-    private ExtendedRequest<String,UserBean> rt;
+    private SimpleRequest<String> rt;
     private ProgressDialog progressDialog;
     private HttpStatus httpStatus;
     private Consumer<HttpStatus> consumer;
 
-    public UserDetailUpdateTask(@NonNull Context context, Consumer<HttpStatus> consumer){
+    public CourseSubscribeTask(@NonNull Context context, Consumer<HttpStatus> consumer){
         this.context = context;
         this.consumer = consumer;
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void updateUser(UserBean userBean){
+    public void subscribe(long courseId){
         SharedPreferences sp = context.getSharedPreferences(Const.DEF_SHARED_PREF,
-                                    Context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         String token = sp.getString(Const.SHARED_PREF_TOKEN,"");;
 
         if(token == null || token.isEmpty()){
-            Log.w(UserDetailUpdateTask.class.getName(),"token not retrieved from SharedPreferences");
+            Log.w(CourseSubscribeTask.class.getName(),"token not retrieved from SharedPreferences");
+            return;
         }
 
-        Log.i(UserDetailUpdateTask.class.getName(),"retrieving user details with token :- "+token);
-        rt = new ExtendedRequest<String, UserBean>(String.class, userBean, HttpMethod.PUT,
-                HeaderTools.CONTENT_TYPE_JSON,
-                HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token)){
-//        rt = new ExtendedRequest<String, String>(String.class,"", HttpMethod.GET,
-//                HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token)){
+        Log.i(CourseSubscribeTask.class.getName(),"subscribing course");
+
+        rt = new SimpleRequest<String>(String.class, HttpMethod.POST,
+                HeaderTools.makeAuthorizationHeader(Const.AUTH_PREFIX+token),
+                HeaderTools.CONTENT_TYPE_JSON){
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage("Please wait");
-                progressDialog.setTitle("updating");
+                progressDialog.setTitle("");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
             }
@@ -64,23 +65,22 @@ public class UserDetailUpdateTask {
             protected void onPostExecute(String string) {
                 super.onPostExecute(string);
                 progressDialog.dismiss();
-                UserDetailUpdateTask.this.httpStatus = super.getHttpStatus();
+                CourseSubscribeTask.this.httpStatus = super.getHttpStatus();
                 if(consumer != null)
                     consumer.consume(super.getHttpStatus());
                 else
-                    Log.i(UserDetailUpdateTask.class.getName(),"consumer reference null");
-
+                    Log.i(CourseSubscribeTask.class.getName(),"consumer reference null");
             }
 
         };
-        rt.execute(Const.API_BASE_URL+"/user/update");
+        rt.execute(Const.API_BASE_URL+"/courses/subscribe/"+courseId);
     }
 
     public @Nullable HttpStatus getResponseStatus(){
         return httpStatus;
     }
 
-    public ExtendedRequest<String, UserBean> getRt() {
+    public SimpleRequest<String> getRt() {
         return rt;
     }
 

@@ -1,23 +1,21 @@
 package tk.vn.app.presentation;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
 
 import tk.vn.app.R;
 import tk.vn.app.com.Const;
 import tk.vn.app.com.Consumer;
-import tk.vn.app.com.CourseDetailFetchTask;
+import tk.vn.app.com.net.CardPlayListFetchTask;
+import tk.vn.app.com.net.CourseDetailFetchTask;
 import tk.vn.app.com.RunTimeStore;
-import tk.vn.app.com.SubscriptionDetailFetchTask;
-import tk.vn.app.com.UserDetailFetchTask;
+import tk.vn.app.com.net.SubscriptionDetailFetchTask;
+import tk.vn.app.com.net.UserDetailFetchTask;
+import tk.vn.app.model.CardBean;
+import tk.vn.app.model.CardPlayBean;
 import tk.vn.app.model.CourseBean;
 import tk.vn.app.model.SubscriptionBean;
 import tk.vn.app.model.UserBean;
@@ -34,6 +32,11 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         // redirect to main activity if already logged in
         SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
@@ -59,8 +62,6 @@ public class SplashActivity extends Activity {
         }else{
             fetchUserDetail();
         }
-
-
     }
 
     private void startMain(){
@@ -71,7 +72,6 @@ public class SplashActivity extends Activity {
 
 
     private void fetchUserDetail(){
-
         UserDetailFetchTask task = new UserDetailFetchTask(this, new Consumer<UserBean>() {
             @Override
             public void consume(UserBean userBean) {
@@ -136,11 +136,37 @@ public class SplashActivity extends Activity {
                 if(subscriptionBean != null){
                     RunTimeStore.storeObj(Const.SUBSCRIPTION_DETAIL,subscriptionBean);
                     System.out.println(subscriptionBean);
-                    startMain();
+                    fetchNextCardPlays();
                 }
                 //TODO implement logic for error in fetching subscription
             }
         },false);
         task.fetchSubscriptionBean(subscriptionId);
     }
+
+    private void fetchNextCardPlays(){
+        SharedPreferences sp = getSharedPreferences(Const.DEF_SHARED_PREF,MODE_PRIVATE);
+
+        // retrieve subscriptionId
+        long subscriptionId = sp.getLong(Const.SHARED_PREF_SUBSCRIPTION_ID, 0);
+        if(subscriptionId == 0){
+            //TODO implement logic for no subscription active
+            startMain();
+            return;
+        }
+
+        CardPlayListFetchTask task = new CardPlayListFetchTask(this, new Consumer<CardBean[]>() {
+            @Override
+            public void consume(CardBean[] list) {
+                if(list != null){
+                    RunTimeStore.storeObj(Const.NEXT_CARD_PLAY,list);
+                    System.out.println(list);
+                    startMain();
+                }
+                //TODO implement logic for error in fetching subscription
+            }
+        },false);
+        task.fetchSubscriptions(subscriptionId);
+    }
+
 }

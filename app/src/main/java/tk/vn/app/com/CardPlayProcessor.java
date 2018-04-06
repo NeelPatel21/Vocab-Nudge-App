@@ -95,8 +95,7 @@ public class CardPlayProcessor {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<AssessmentCardBean> getWrongAssessmentCards(GoalBean goalBean){
 //        List<TrainingCardBean> trainingCardBeans = new ArrayList<>();
-        return goalBean.getAssessmentCards().stream()
-                .filter(x->isActive(x.getCardId()))
+        return getActivatedAssessmentCards(goalBean).stream()
                 .filter(x->!isRight(x.getCardId()))
                 .collect(Collectors.toList());
     }

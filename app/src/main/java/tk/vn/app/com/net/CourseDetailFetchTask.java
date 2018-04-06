@@ -1,4 +1,4 @@
-package tk.vn.app.com;
+package tk.vn.app.com.net;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -13,6 +13,8 @@ import com.simple_rest.s_rest.restapi.request.SimpleRequest;
 
 import org.springframework.http.HttpMethod;
 
+import tk.vn.app.com.Const;
+import tk.vn.app.com.Consumer;
 import tk.vn.app.model.CourseBean;
 
 /**

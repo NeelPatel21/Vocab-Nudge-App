@@ -19,4 +19,5 @@ public class Const {
     public final static String CARD_PROCESSOR = "card_processor";
     public static final String FRAGMENT_REF_TITLE = "fragment_title";
     public static final String FRAGMENT_REF_PROCESSOR = "fragment_processor";
+    public static final String NEXT_CARD_PLAY = "next_cardPlay";
 }
