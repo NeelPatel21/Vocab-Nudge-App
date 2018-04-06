@@ -1,5 +1,7 @@
 package tk.vn.app.model;
 
+import java.util.Arrays;
+
 public class AssessmentCardBean extends CardBean {
 
     private String question;
@@ -32,5 +34,14 @@ public class AssessmentCardBean extends CardBean {
 
     public void setCorrectOptionIndex(int correctOptionIndex) {
         this.correctOptionIndex = correctOptionIndex;
+    }
+
+    @Override
+    public String toString() {
+        return "AssessmentCardBean{" +
+                "question='" + question + '\'' +
+                ", options=" + Arrays.toString(options) +
+                ", correctOptionIndex=" + correctOptionIndex +
+                '}';
     }
 }

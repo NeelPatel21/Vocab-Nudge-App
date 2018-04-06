@@ -37,7 +37,7 @@ public class CardPlayTask {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void createUser(CardPlayBean cardPlayBean){
+    public void playCard(CardPlayBean cardPlayBean){
 
         SharedPreferences sp = context.getSharedPreferences(Const.DEF_SHARED_PREF,
                 Context.MODE_PRIVATE);

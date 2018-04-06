@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import tk.vn.app.R;
+import tk.vn.app.com.Const;
+import tk.vn.app.com.RunTimeStore;
+import tk.vn.app.model.UserBean;
 import tk.vn.app.presentation.CardPlayActivity;
 import tk.vn.app.presentation.CourseViewActivity;
 
@@ -54,7 +57,11 @@ public class MainActivityHomeFragment extends Fragment {
         // bind view using butter knife
 //        unbinder = ButterKnife.bind(this, view);
 
+
         TextView courseCard = view.findViewById(R.id.next_card_timing);
+
+        TextView creditText = view.findViewById(R.id.text_credit);
+        creditText.setText(((UserBean)RunTimeStore.get(Const.USER_DETAIL)).getCredits()+"");
 
         courseCard.setOnClickListener(new View.OnClickListener() {
             @Override

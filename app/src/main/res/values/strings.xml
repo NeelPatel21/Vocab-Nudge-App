@@ -9,7 +9,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="text_credit_usage_help">use this credits to unlock more cards</string>
+    <string name="text_credit_usage_help">Play more cards to earn credits</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

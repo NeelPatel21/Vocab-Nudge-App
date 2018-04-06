@@ -112,7 +112,7 @@
                         android:layout_width="328dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:text="Next card will get unlocked in 1 h 13 min through a notification"
+                        android:text="New cards are unlocked!! Click here to play"
                         android:textColor="@color/font_Dark"
                         android:textSize="@dimen/font_size_h4"
                         tools:layout_editor_absoluteY="206dp"

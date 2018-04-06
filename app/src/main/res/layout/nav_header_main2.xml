@@ -18,13 +18,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon"/>
+        app:srcCompat="@drawable/boy"/>
 
     <TextView
         android:id="@+id/nav_header_text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_marginLeft="@dimen/default_padding"
         android:text="Hey there!!"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
