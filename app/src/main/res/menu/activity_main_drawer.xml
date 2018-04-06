@@ -13,10 +13,10 @@
         android:id="@+id/nav_all_courses"
         android:icon="@drawable/drawer_list"
         android:title="All Courses"/>
-    <item
-        android:id="@+id/nav_vn_Science"
-        android:icon="@drawable/drawer_science"
-        android:title="Vocab Nudge Science"/>
+    <!--<item-->
+        <!--android:id="@+id/nav_vn_Science"-->
+        <!--android:icon="@drawable/drawer_science"-->
+        <!--android:title="Vocab Nudge Science"/>-->
     <item
         android:id="@+id/nav_contact_us"
         android:icon="@drawable/drawer_contact"
@@ -25,10 +25,10 @@
         android:id="@+id/nav_share"
         android:icon="@drawable/drawer_share"
         android:title="Share"/>
-    <item
-        android:id="@+id/nav_faq"
-        android:icon="@drawable/drawer_faq"
-        android:title="FAQs"/>
+    <!--<item-->
+        <!--android:id="@+id/nav_faq"-->
+        <!--android:icon="@drawable/drawer_faq"-->
+        <!--android:title="FAQs"/>-->
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/drawer_logout"

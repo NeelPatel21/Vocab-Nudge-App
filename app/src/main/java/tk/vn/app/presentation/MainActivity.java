@@ -163,13 +163,26 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_all_courses) {
             Intent i = new Intent(this, CourseListActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_vn_Science) {
+//        } else if (id == R.id.nav_vn_Science) {
 
         } else if (id == R.id.nav_contact_us) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_EMAIL, "vocabnudge@gmail.com");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "feedback");
+            intent.putExtra(Intent.EXTRA_TEXT, "");
+
+            startActivity(Intent.createChooser(intent, "Send Email"));
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_faq) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+            String sAux = "\nI would like to recommend you this application\n\n";
+            sAux = sAux + "https://vocabnudge.herokuapp.com \n\n";
+            i.putExtra(Intent.EXTRA_TEXT, sAux);
+            startActivity(Intent.createChooser(i, "choose one"));
+//        } else if (id == R.id.nav_faq) {
 
         } else if (id == R.id.nav_logout) {
             LogoutTask task = new LogoutTask(this, new Consumer<HttpStatus>() {
